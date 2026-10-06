@@ -1,0 +1,13 @@
+/* 蓝白扎染色板(取自扎染绘本.html 的 :root) */
+:root {
+  --indigo: #2b4b7c;
+  --indigo-deep: #1d3557;
+  --indigo-soft: #5b7fb0;
+  --cream: #fbf7ef;
+  --paper: #fffdf8;
+  --ink: #3a3a3a;
+  --accent: #e8a33d;
+  --ok: #2b8a5c;
+  --danger: #c0504d;
+  --topbar-h: 64px;
+}

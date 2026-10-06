@@ -1,0 +1,10 @@
+# 站点根:API 请求转发给后端入口,其余交给前端静态文件
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # /api 一律走后端入口(后端入口再按路由表分发)
+    RewriteRule ^api/(.*)$ backend/public/index.php [L,QSA]
+    # 前端路由(history 模式):非文件请求回退 index.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.html [L]
+</IfModule>

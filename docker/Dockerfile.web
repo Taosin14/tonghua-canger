@@ -1,0 +1,15 @@
+# 童画苍洱 Web 服务镜像:PHP 8.1 + Apache,内含后端 API 与前端构建产物
+# 构建前置:cd frontend && npm run build(生成 dist)
+FROM php:8.1-apache
+
+# MySQL 驱动 + 重写模块
+RUN docker-php-ext-install pdo_mysql && a2enmod rewrite
+
+# 站点根目录(前端 dist 与后端并列,API 经根 .htaccess 转发)
+WORKDIR /var/www/html
+COPY frontend/dist/ ./
+COPY backend/ backend/
+COPY docker/apache-root.htaccess .htaccess
+
+# 后端配置走环境变量(compose 里注入)
+EXPOSE 80

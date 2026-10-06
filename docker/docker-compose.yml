@@ -1,0 +1,40 @@
+# 童画苍洱 一键部署:web(PHP+Apache+前端)+ db(MySQL 8,自动导入种子数据)
+# 离线分发:docker save -o 童画苍洱-web-v1.0.tar 童话苍洱-web && docker save -o mysql-8.0.tar mysql:8.0
+# 目标机:docker load -i *.tar && docker compose up -d,浏览器访问 http://localhost:8080
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.web
+    image: tonghua-canger-web:v1.0
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: canger
+      DB_USER: canger
+      DB_PASS: canger123
+      GLM_API_KEY: ""
+      # 无 Key 时生成/生图自动降级为模板拼装与占位卡,系统照常可用
+  db:
+    image: mysql:8.0
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: canger_root
+      MYSQL_DATABASE: canger
+      MYSQL_USER: canger
+      MYSQL_PASSWORD: canger123
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ../backend/db:/docker-entrypoint-initdb.d:ro  # 01~06 SQL 按文件名序自动执行
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pcanger_root"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+volumes:
+  dbdata: {}
