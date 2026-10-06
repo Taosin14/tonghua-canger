@@ -82,4 +82,4 @@ mysql -u root -p < backend/db/05_seed_admin.sql
 
 - **图片方针:AI 生图**。绘本插画全部由 AI 生成:主力为**自建 Stable Diffusion**(SD1.5 绘本底模 + 宫崎骏 LoRA + IP-Adapter 角色一致性),智谱 CogView 作降级备份。图片文件存放 `frontend/public/images/`、路径由数据库 `pages.illus` 字段统一管理,每次生成记 ai_logs(引擎/耗时),满足《AI 生成合成内容标识办法》披露要求
 - **朗读**:主力为**自建 GPT-SoVITS 声音克隆**(参考音频来自开源儿童语音数据集),Edge TTS 作降级备份;音频按页落盘缓存
-- 各引擎降级链与调用统计见 `交付包/05-文档/AIGC使用披露.md`
+- 各引擎降级链与调用统计见 `AIGC使用披露.md`
