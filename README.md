@@ -19,8 +19,8 @@ AI 不可用(无 Key/断网/配额用尽)时自动降级为模板拼装,系统�
 frontend/   Vue3 前端(Vite 构建)
 backend/    PHP API(config.php 是唯一改配置的地方;db/ 下 SQL 按文件名序执行)
 scripts/    数据导入脚本(import_xlsx.py / extract_book.py)
-docs/       文档(设计方案/部署说明/测试用例等)
 docker/     部署镜像(W4)
+.md .csv .tsv文件  补充
 ```
 
 ## 本地开发启动
